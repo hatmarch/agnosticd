@@ -6,7 +6,8 @@
 	],
 	"extensions": [
 		"redhat.vscode-xml",
-		"joaompinto.asciidoctor-vscode"
+		"joaompinto.asciidoctor-vscode",
+		"ms-python.python"
 	],
 	"settings":{
 		"terminal.integrated.shell.linux": "/bin/bash"
