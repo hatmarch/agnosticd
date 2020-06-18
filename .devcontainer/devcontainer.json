@@ -1,0 +1,14 @@
+{
+	"name": "AgnosticD Runner",
+	"dockerFile": "Dockerfile",
+	"runArgs": [
+		"-v", "${env:HOME}/.kube:/opt/app-root/src/.kube"
+	],
+	"extensions": [
+		"redhat.vscode-xml",
+		"joaompinto.asciidoctor-vscode"
+	],
+	"settings":{
+		"terminal.integrated.shell.linux": "/bin/bash"
+	}
+}
