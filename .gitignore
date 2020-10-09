@@ -34,3 +34,8 @@ __pycache__
 
 dynamic-cache
 dynamic-roles
+
+.kube/
+.ansible/
+.cache/
+.bash_history
