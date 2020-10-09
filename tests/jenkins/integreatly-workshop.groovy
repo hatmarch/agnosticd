@@ -99,6 +99,8 @@ pipeline {
                     def ocprelease = params.ocprelease.trim()
                     def region = params.region.trim()
                     def cfparams = [
+                        'status=t',
+                        'notes=Development - Catalog item creation / maintenance',
                         'expiration=3',
                         'runtime=36',
                         "region=${region}",

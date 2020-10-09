@@ -7,6 +7,7 @@ metadata:
   labels:
     control-plane: controller-manager
     controller-tools.k8s.io: "1.0"
+    openshift.io/cluster-monitoring: "true"
   name: "{{ mig_migration_namespace }}"
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -193,14 +194,14 @@ spec:
         - /usr/local/bin/ao-logs
         - /tmp/ansible-operator/runner
         - stdout
-        image: registry.redhat.io/rhcam-1-1/{{ mig_migration_namespace }}-rhel7-operator:v1.1
+        image: registry.redhat.io/rhcam-1-2/{{ mig_migration_namespace }}-rhel7-operator:v1.2
         imagePullPolicy: Always
         volumeMounts:
         - mountPath: /tmp/ansible-operator/runner
           name: runner
           readOnly: true
       - name: operator
-        image: registry.redhat.io/rhcam-1-1/{{ mig_migration_namespace }}-rhel7-operator:v1.1
+        image: registry.redhat.io/rhcam-1-2/{{ mig_migration_namespace }}-rhel7-operator:v1.2
         imagePullPolicy: Always
         volumeMounts:
         - mountPath: /tmp/ansible-operator/runner
@@ -219,7 +220,11 @@ spec:
         - name: REGISTRY
           value: registry.redhat.io
         - name: PROJECT
-          value: rhcam-1-1
+          value: rhcam-1-2
+        - name: HOOK_RUNNER_REPO
+          value: {{ mig_migration_namespace }}-hook-runner-rhel7@sha256
+        - name: HOOK_RUNNER_TAG
+          value: 86a048f0ee9726b4331d10190dc5851330b66c0326d94652ac07f33a501ae323
         - name: MIG_CONTROLLER_REPO
           value: {{ mig_migration_namespace }}-controller-rhel8@sha256
         - name: MIG_UI_REPO
@@ -227,7 +232,7 @@ spec:
         - name: MIGRATION_REGISTRY_REPO
           value: {{ mig_migration_namespace }}-registry-rhel8@sha256
         - name: MIGRATION_REGISTRY_TAG
-          value: 0ae610db4f73b6a5353c4821165bd60a8c4e86ac5ba5f1d60cd532f5bcd814bd
+          value: 37536b4487d3668a7105737695a0651e6be64720bc72a69da74153a8443ac9e1
         - name: VELERO_REPO
           value: {{ mig_migration_namespace }}-velero-rhel8@sha256
         - name: VELERO_PLUGIN_REPO
@@ -241,21 +246,21 @@ spec:
         - name: VELERO_AZURE_PLUGIN_REPO
           value: {{ mig_migration_namespace }}-velero-plugin-for-microsoft-azure-rhel8@sha256
         - name: VELERO_TAG
-          value: db2997115d8a0767d61038e14f48170dc53d3c54b977184e7ecb37ead2f131da
+          value: 461ea0c165ed525d4276056f6aab879dcf011facb00e94acc88ae6e9f33f1637
         - name: VELERO_RESTIC_RESTORE_HELPER_TAG
-          value: 44f0362c8570d707582bd428aaf18f390ce915ef72cdeb60cf2699171dbda3c8
+          value: 356e8d9dede186325e3e4f8700cbde7121b6c4dc35c0099b8337c6cfb83049d8
         - name: VELERO_PLUGIN_TAG
-          value: 4009d8488a9aa382d7799e8d25617048f57b273c298a9c89a4f233d7a12af628
+          value: 7b6aa42f4428ab744e354c4095afae460b6e5e4e868969a14b4d1aec541a946a
         - name: VELERO_AWS_PLUGIN_TAG
-          value: 2623e239a43208390680fb1da81f547248773d48da546b9cc6c516b2e60daee4
+          value: bfda4f3c7f95993b5f9dace49856b124505e72bd87d42a50918f4194b7e6d7f0
         - name: VELERO_GCP_PLUGIN_TAG
-          value: 44f40ff5a3c8ad9b76105e2b8fc5bd04692464cc4aa683da2cf83b3336200863
+          value: fa6c5c8dc38b8965dd9eedb9c2a86dc9a8441cb280392961a1b8b42379648014
         - name: VELERO_AZURE_PLUGIN_TAG
-          value: 9e69f2af712452218cde0c3325c60f9e1eb4624bcaff67770822b60f2e19ac60
+          value: c8b0fb034244ef9598703ec9534ecfb5c97cff42157d2571eab382bdb1aeb5a2
         - name: MIG_UI_TAG
-          value: 11c8c729bd4871c33b52f0405a0c5ec0438aefd2ed0ffc712034ba89160ed133
+          value: 6abfaea8ac04e3b5bbf9648a3479b420b4baec35201033471020c9cae1fe1e11
         - name: MIG_CONTROLLER_TAG
-          value: 52e3bb16a6fb0852aec7676bba5e5a5af01580f4997bac7747f158239b839ece
+          value: 35c9a554de83d7dc9c560936c297085bbf05b08202885337addb1e4151b40d40
       volumes:
         - name: runner
           emptyDir: {}
