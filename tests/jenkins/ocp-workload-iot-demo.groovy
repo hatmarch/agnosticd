@@ -57,6 +57,8 @@ pipeline {
                     def catalog = params.catalog_item.split(' / ')[0].trim()
                     def item = params.catalog_item.split(' / ')[1].trim()
                     def cfparams = [
+                        'status=t',
+                        'notes=Development - Catalog item creation / maintenance',
                         'check=t',
                         'quotacheck=t',
                         "region=global_gpte",
